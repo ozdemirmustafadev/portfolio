@@ -1,18 +1,42 @@
-import { Container } from "@/components/ui/container";
+import { About } from "@/components/sections/about";
+import { Contact } from "@/components/sections/contact";
+import { Experience } from "@/components/sections/experience";
+import { GitHubStats } from "@/components/sections/github-stats";
+import { Hero } from "@/components/sections/hero";
+import { LatestPosts } from "@/components/sections/latest-posts";
+import { Projects } from "@/components/sections/projects";
+import { profile } from "@/content/profile";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { siteUrl } from "@/lib/site";
 
 export default async function HomePage() {
   const dict = await getDictionary();
 
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: profile.name,
+    jobTitle: dict.hero.eyebrow,
+    url: siteUrl,
+    email: `mailto:${profile.email}`,
+    sameAs: Object.values(profile.links).filter(Boolean),
+  };
+
   return (
     <main>
-      <Container className="py-24 sm:py-32">
-        <p className="font-mono text-xs tracking-wider text-muted uppercase">{dict.hero.eyebrow}</p>
-        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-          {dict.hero.title}
-        </h1>
-        <p className="mt-5 max-w-xl leading-relaxed text-pretty text-muted">{dict.hero.summary}</p>
-      </Container>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(personSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+      <Hero />
+      <About />
+      <Projects />
+      <GitHubStats />
+      <Experience />
+      <LatestPosts />
+      <Contact />
     </main>
   );
 }

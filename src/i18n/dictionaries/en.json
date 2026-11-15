@@ -9,7 +9,9 @@
     "projects": "Projects",
     "experience": "Experience",
     "blog": "Blog",
-    "contact": "Contact"
+    "contact": "Contact",
+    "open": "Open menu",
+    "close": "Close menu"
   },
   "controls": {
     "toggleTheme": "Toggle theme",
@@ -17,7 +19,76 @@
   },
   "hero": {
     "eyebrow": "Flutter Developer",
-    "title": "I build mobile apps that feel fast and stay maintainable.",
-    "summary": "Mostly Flutter and Dart. When a project needs a backend or a web front, I reach for Go and Next.js."
+    "title": "I build mobile apps for iOS and Android with Flutter.",
+    "summary": "Mostly Flutter and Dart. When a project needs a backend or a web front, I reach for Go and Next.js.",
+    "contact": "Get in touch",
+    "cv": "Download CV"
+  },
+  "about": {
+    "title": "About",
+    "paragraphs": [
+      "I studied IT and spent years on the hardware and systems side of the industry: technical support, IT operations and CRM. Then I decided to grow into software and completed a 300-hour Flutter program. Today I work as a Flutter developer at Ufuk Araç Takip Sistemi, a vehicle tracking company.",
+      "Alongside mobile, I work with Go and Next.js on the backend and web side. I like simple interfaces, readable code, and seeing a feature through from start to finish."
+    ],
+    "stack": "Stack"
+  },
+  "projects": {
+    "title": "Projects",
+    "more": "Other work",
+    "confidential": "Under NDA",
+    "links": {
+      "appStore": "App Store",
+      "playStore": "Google Play",
+      "github": "Source",
+      "website": "Website"
+    }
+  },
+  "github": {
+    "title": "GitHub",
+    "repos": "Public repos",
+    "stars": "Stars",
+    "followers": "Followers",
+    "contributions": "Contributions",
+    "activity": "Last 12 months",
+    "contributionsOn": "{count} contributions on {date}",
+    "less": "Less",
+    "more": "More",
+    "profile": "View profile"
+  },
+  "experience": {
+    "title": "Experience",
+    "present": "Present",
+    "education": "Education",
+    "courses": "Courses"
+  },
+  "blog": {
+    "title": "Writing",
+    "description": "Notes on Flutter, Go and whatever I run into while building.",
+    "all": "All posts",
+    "back": "All posts",
+    "empty": "Nothing here yet."
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "If you have a project, a job opportunity or a question, feel free to reach out. I'll get back to you as soon as I can.",
+    "email": "Email",
+    "personalEmail": "Personal email",
+    "formTitle": "Send a message",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "success": "Thanks, your message has been sent. I'll reply soon.",
+      "invalid": "Please fill in all fields with valid values.",
+      "rateLimited": "Too many messages. Please try again later.",
+      "error": "Something went wrong. You can email me directly instead."
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for doesn't exist or has been moved.",
+    "home": "Back to home"
   }
 }

@@ -9,7 +9,9 @@
     "projects": "Projeler",
     "experience": "Deneyim",
     "blog": "Blog",
-    "contact": "İletişim"
+    "contact": "İletişim",
+    "open": "Menüyü aç",
+    "close": "Menüyü kapat"
   },
   "controls": {
     "toggleTheme": "Temayı değiştir",
@@ -17,7 +19,76 @@
   },
   "hero": {
     "eyebrow": "Flutter Developer",
-    "title": "Hızlı hissettiren ve bakımı kolay mobil uygulamalar geliştiriyorum.",
-    "summary": "Ağırlıklı olarak Flutter ve Dart. Projenin bir backend'e ya da web yüzüne ihtiyacı olduğunda Go ve Next.js kullanıyorum."
+    "title": "Flutter ile iOS ve Android için mobil uygulamalar geliştiriyorum.",
+    "summary": "Ağırlıklı olarak Flutter ve Dart. Projenin bir backend'e ya da web yüzüne ihtiyacı olduğunda Go ve Next.js kullanıyorum.",
+    "contact": "İletişime geç",
+    "cv": "CV'yi indir"
+  },
+  "about": {
+    "title": "Hakkımda",
+    "paragraphs": [
+      "Bilişim eğitimi aldım ve uzun süre sektörün donanım ve sistem tarafında çalıştım: teknik destek, bilgi işlem ve CRM. Sonra kendimi yazılımda geliştirmeye karar verdim, 300 saatlik bir Flutter programını tamamladım. Şu an Ufuk Araç Takip Sistemi'nde Flutter developer olarak çalışıyorum.",
+      "Mobilin yanında backend ve web tarafında Go ve Next.js ile çalışıyorum. Sade arayüzleri, okunabilir kodu ve bir özelliği baştan sona kendim götürmeyi seviyorum."
+    ],
+    "stack": "Teknolojiler"
+  },
+  "projects": {
+    "title": "Projeler",
+    "more": "Diğer işler",
+    "confidential": "Gizlilik sözleşmeli",
+    "links": {
+      "appStore": "App Store",
+      "playStore": "Google Play",
+      "github": "Kaynak kod",
+      "website": "Web sitesi"
+    }
+  },
+  "github": {
+    "title": "GitHub",
+    "repos": "Açık repo",
+    "stars": "Yıldız",
+    "followers": "Takipçi",
+    "contributions": "Katkı",
+    "activity": "Son 12 ay",
+    "contributionsOn": "{date}: {count} katkı",
+    "less": "Az",
+    "more": "Çok",
+    "profile": "Profili gör"
+  },
+  "experience": {
+    "title": "Deneyim",
+    "present": "Halen",
+    "education": "Eğitim",
+    "courses": "Kurslar"
+  },
+  "blog": {
+    "title": "Yazılar",
+    "description": "Flutter, Go ve geliştirirken karşılaştığım şeyler üzerine notlar.",
+    "all": "Tüm yazılar",
+    "back": "Tüm yazılar",
+    "empty": "Henüz yazı yok."
+  },
+  "contact": {
+    "title": "İletişim",
+    "intro": "Bir projen, iş teklifin ya da sorun varsa yazabilirsin. En kısa sürede dönüş yaparım.",
+    "email": "E-posta",
+    "personalEmail": "Kişisel e-posta",
+    "formTitle": "Mesaj gönder",
+    "form": {
+      "name": "Ad",
+      "email": "E-posta",
+      "message": "Mesaj",
+      "submit": "Mesajı gönder",
+      "sending": "Gönderiliyor…",
+      "success": "Teşekkürler, mesajın iletildi. En kısa sürede dönüş yapacağım.",
+      "invalid": "Lütfen tüm alanları geçerli şekilde doldur.",
+      "rateLimited": "Çok fazla mesaj gönderildi. Lütfen daha sonra tekrar dene.",
+      "error": "Bir şeyler ters gitti. Bana doğrudan e-posta atabilirsin."
+    }
+  },
+  "notFound": {
+    "title": "Sayfa bulunamadı",
+    "description": "Aradığın sayfa mevcut değil ya da taşınmış olabilir.",
+    "home": "Ana sayfaya dön"
   }
 }

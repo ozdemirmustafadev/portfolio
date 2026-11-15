@@ -23,7 +23,7 @@ export function LocaleSwitcher({ current, label }: LocaleSwitcherProps) {
       onClick={() => {
         document.cookie = `${localeCookie}=${target}; path=/; max-age=31536000; samesite=lax`;
       }}
-      className="grid h-8 place-items-center rounded-md px-2 font-mono text-xs text-muted uppercase transition-colors hover:bg-subtle hover:text-foreground"
+      className="grid h-8 place-items-center rounded-md px-2 text-xs font-semibold text-muted uppercase transition-colors hover:bg-subtle hover:text-foreground"
     >
       {target}
     </Link>

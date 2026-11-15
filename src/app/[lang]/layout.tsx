@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { profile } from "@/content/profile";
 import { locales } from "@/i18n/config";
 import { getDictionary, getLocale } from "@/i18n/get-dictionary";
+import { siteUrl } from "@/lib/site";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -21,11 +24,24 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dict = await getDictionary();
+  const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
 
   return {
-    title: dict.metadata.title,
+    metadataBase: new URL(siteUrl),
+    title: { default: dict.metadata.title, template: `%s · ${profile.name}` },
     description: dict.metadata.description,
+    authors: [{ name: profile.name, url: siteUrl }],
+    alternates: {
+      canonical: `/${locale}`,
+      languages: { tr: "/tr", en: "/en", "x-default": "/en" },
+    },
+    openGraph: {
+      type: "website",
+      siteName: profile.name,
+      locale: locale === "tr" ? "tr_TR" : "en_US",
+      url: `/${locale}`,
+    },
+    twitter: { card: "summary_large_image" },
   };
 }
 
@@ -38,10 +54,11 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-dvh font-sans">
+      <body className="flex min-h-dvh flex-col font-sans">
         <ThemeProvider>
           <SiteHeader />
-          {children}
+          <div className="flex-1">{children}</div>
+          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>
