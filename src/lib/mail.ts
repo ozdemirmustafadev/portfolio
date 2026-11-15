@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer";
-import { profile } from "@/content/profile";
 
 type ContactMessage = {
   name: string;
@@ -7,34 +6,36 @@ type ContactMessage = {
   message: string;
 };
 
-function getTransport() {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD } = process.env;
+function requireEnv(name: string) {
+  const value = process.env[name];
+  if (!value) throw new Error(`${name} is not configured.`);
+  return value;
+}
 
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASSWORD) {
-    throw new Error("SMTP is not configured.");
-  }
-
-  const port = Number(SMTP_PORT ?? 587);
+function createTransport() {
+  const port = Number(process.env.SMTP_PORT) || 465;
+  const secure = process.env.SMTP_SECURE ? process.env.SMTP_SECURE === "true" : port === 465;
 
   return nodemailer.createTransport({
-    host: SMTP_HOST,
+    host: requireEnv("SMTP_HOST"),
     port,
-    secure: port === 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASSWORD },
+    secure,
+    servername: process.env.SMTP_TLS_SERVERNAME || undefined,
+    auth: {
+      user: requireEnv("SMTP_USER"),
+      pass: requireEnv("SMTP_PASSWORD"),
+    },
   });
 }
 
 export async function sendContactEmail({ name, email, message }: ContactMessage) {
-  const recipient = process.env.CONTACT_TO_EMAIL;
-  if (!recipient) throw new Error("CONTACT_TO_EMAIL is not configured.");
-
   const safeName = name.replace(/[\r\n"<>]/g, " ").trim();
 
-  await getTransport().sendMail({
-    from: { name: profile.name, address: process.env.SMTP_USER! },
-    to: recipient,
+  await createTransport().sendMail({
+    from: { name: "ozdemirmustafa.com", address: requireEnv("MAIL_FROM") },
+    to: requireEnv("MAIL_TO"),
     replyTo: { name: safeName, address: email },
-    subject: `New message from ${safeName}`,
+    subject: `Contact form: ${safeName}`,
     text: `${message}\n\n${safeName} <${email}>`,
   });
 }

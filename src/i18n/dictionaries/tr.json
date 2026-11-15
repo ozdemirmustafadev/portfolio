@@ -83,6 +83,7 @@
       "success": "Teşekkürler, mesajın iletildi. En kısa sürede dönüş yapacağım.",
       "invalid": "Lütfen tüm alanları geçerli şekilde doldur.",
       "rateLimited": "Çok fazla mesaj gönderildi. Lütfen daha sonra tekrar dene.",
+      "verificationFailed": "Doğrulama tamamlanamadı. Lütfen tekrar dene.",
       "error": "Bir şeyler ters gitti. Bana doğrudan e-posta atabilirsin."
     }
   },

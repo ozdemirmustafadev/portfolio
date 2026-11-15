@@ -3,7 +3,7 @@ import type { ComponentType, SVGProps } from "react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
 import { Section } from "@/components/ui/section";
 import { profile } from "@/content/profile";
-import { getDictionary } from "@/i18n/get-dictionary";
+import { getDictionary, getLocale } from "@/i18n/get-dictionary";
 import { ContactForm } from "./contact-form";
 
 type ContactChannel = {
@@ -14,7 +14,7 @@ type ContactChannel = {
 };
 
 export async function Contact() {
-  const dict = await getDictionary();
+  const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
 
   const channels: ContactChannel[] = [
     {
@@ -73,7 +73,11 @@ export async function Contact() {
       <div className="mt-8 rounded-2xl border border-border p-6 sm:p-8">
         <h3 className="text-lg font-semibold">{dict.contact.formTitle}</h3>
         <div className="mt-5">
-          <ContactForm labels={dict.contact.form} />
+          <ContactForm
+            labels={dict.contact.form}
+            turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ""}
+            language={locale}
+          />
         </div>
       </div>
     </Section>

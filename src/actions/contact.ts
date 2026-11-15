@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 import { sendContactEmail } from "@/lib/mail";
 import { isRateLimited } from "@/lib/rate-limit";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 export type ContactFields = {
   name: string;
@@ -11,8 +12,9 @@ export type ContactFields = {
 };
 
 export type ContactState = {
-  status: "idle" | "success" | "invalid" | "rateLimited" | "error";
+  status: "idle" | "success" | "invalid" | "rateLimited" | "verificationFailed" | "error";
   fields: ContactFields;
+  submittedAt: number;
 };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,7 +28,7 @@ function isValid({ name, email, message }: ContactFields) {
   return (
     name.length >= 2 &&
     name.length <= 100 &&
-    email.length <= 200 &&
+    email.length <= 254 &&
     emailPattern.test(email) &&
     message.length >= 10 &&
     message.length <= 5000
@@ -34,27 +36,34 @@ function isValid({ name, email, message }: ContactFields) {
 }
 
 async function getClientIp() {
-  const requestHeaders = await headers();
-  return (
-    requestHeaders.get("x-real-ip") ??
-    requestHeaders.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    "unknown"
-  );
+  return (await headers()).get("x-real-ip") ?? "unknown";
 }
 
 export async function sendMessage(_: ContactState, formData: FormData): Promise<ContactState> {
   const fields = readFields(formData);
   const cleared = { name: "", email: "", message: "" };
+  const result = (status: ContactState["status"], keep = true): ContactState => ({
+    status,
+    fields: keep ? fields : cleared,
+    submittedAt: Date.now(),
+  });
 
-  if (formData.get("company")) return { status: "success", fields: cleared };
-  if (!isValid(fields)) return { status: "invalid", fields };
-  if (isRateLimited(await getClientIp())) return { status: "rateLimited", fields };
+  if (formData.get("company")) return result("success", false);
+  if (!isValid(fields)) return result("invalid");
+
+  const ip = await getClientIp();
+  if (isRateLimited(ip)) return result("rateLimited");
+
+  const token = String(formData.get("cf-turnstile-response") ?? "");
+  if (!(await verifyTurnstile(token, ip === "unknown" ? undefined : ip))) {
+    return result("verificationFailed");
+  }
 
   try {
     await sendContactEmail(fields);
-    return { status: "success", fields: cleared };
+    return result("success", false);
   } catch (error) {
     console.error("Failed to send contact email.", error);
-    return { status: "error", fields };
+    return result("error");
   }
 }

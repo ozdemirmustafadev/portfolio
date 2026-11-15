@@ -5,21 +5,29 @@ import { sendMessage, type ContactState } from "@/actions/contact";
 import { buttonClass } from "@/components/ui/button";
 import type { Dictionary } from "@/i18n/types";
 import { cn } from "@/lib/cn";
+import { Turnstile } from "./turnstile";
 
 const initialState: ContactState = {
   status: "idle",
   fields: { name: "", email: "", message: "" },
+  submittedAt: 0,
 };
 
 const fieldClass =
   "w-full rounded-md border border-border bg-background px-3 text-sm transition-colors placeholder:text-muted hover:border-foreground/20 focus:border-foreground/40 focus:outline-none";
 
-export function ContactForm({ labels }: { labels: Dictionary["contact"]["form"] }) {
+type ContactFormProps = {
+  labels: Dictionary["contact"]["form"];
+  turnstileSiteKey: string;
+  language: string;
+};
+
+export function ContactForm({ labels, turnstileSiteKey, language }: ContactFormProps) {
   const [state, formAction, pending] = useActionState(sendMessage, initialState);
   const feedback = state.status === "idle" ? null : labels[state.status];
 
   return (
-    <form action={formAction} className="grid gap-4">
+    <form action={formAction} className="relative grid gap-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="grid gap-1.5 text-sm">
           {labels.name}
@@ -39,7 +47,7 @@ export function ContactForm({ labels }: { labels: Dictionary["contact"]["form"] 
             name="email"
             type="email"
             required
-            maxLength={200}
+            maxLength={254}
             autoComplete="email"
             defaultValue={state.fields.email}
             className={cn(fieldClass, "h-10")}
@@ -60,12 +68,16 @@ export function ContactForm({ labels }: { labels: Dictionary["contact"]["form"] 
         />
       </label>
 
-      <div aria-hidden="true" className="hidden">
+      <div aria-hidden="true" className="absolute -left-[10000px] size-px overflow-hidden">
         <label>
           Company
           <input name="company" tabIndex={-1} autoComplete="off" />
         </label>
       </div>
+
+      {turnstileSiteKey && (
+        <Turnstile siteKey={turnstileSiteKey} language={language} resetKey={state.submittedAt} />
+      )}
 
       <div className="flex flex-wrap items-center gap-4">
         <button type="submit" disabled={pending} className={buttonClass("primary")}>
