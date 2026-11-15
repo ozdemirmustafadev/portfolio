@@ -1,0 +1,16 @@
+[Unit]
+Description=ozdemirmustafa.com
+After=network-online.target
+
+[Service]
+WorkingDirectory=%h/portfolio/.next/standalone
+EnvironmentFile=%h/portfolio/.env
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=HOSTNAME=127.0.0.1
+ExecStart=%h/.local/node/bin/node server.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
