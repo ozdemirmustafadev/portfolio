@@ -1,8 +1,18 @@
 # ozdemirmustafa.com
 
-Personal site and blog. Built with Next.js, TypeScript, Tailwind CSS and MDX.
+Kişisel sitem. Ne iş yaptığımı, üzerinde çalıştığım projeleri ve ara sıra yazdığım yazıları burada topluyorum. Site Türkçe ve İngilizce.
 
-## Getting started
+![Ana sayfa](docs/screenshot.jpg)
+
+## Neler kullandım
+
+- Next.js 16 ve TypeScript
+- Tailwind CSS
+- Blog yazıları için MDX
+- İletişim formu için Nodemailer
+- Yayında: kendi sunucumda Docker + Nginx
+
+## Kendi bilgisayarında çalıştırmak
 
 ```bash
 npm install
@@ -10,64 +20,44 @@ cp .env.example .env.local
 npm run dev
 ```
 
-## Scripts
+Sonra http://localhost:3000 adresini aç. `.env.local` dosyasını boş bıraksan da site açılır, sadece iletişim formu mail gönderemez.
 
-| Command             | Description          |
-| ------------------- | -------------------- |
-| `npm run dev`       | Start the dev server |
-| `npm run build`     | Production build     |
-| `npm run lint`      | ESLint               |
-| `npm run typecheck` | TypeScript check     |
-| `npm run format`    | Format the codebase  |
+## İçerik nerede
 
-## Project structure
+Sitedeki bilgilerin çoğu koddan ayrı dosyalarda duruyor, bir şeyi güncellemek için bileşenlere dokunmak gerekmiyor:
 
-```
-src/
-  actions/        server actions
-  app/[lang]/     localized routes and root layout
-  components/
-    blog/         blog building blocks
-    layout/       header, footer
-    providers/    client-side providers
-    sections/     home page sections
-    ui/           shared primitives
-  content/        profile, projects, experience and blog posts
-  i18n/           locale config and dictionaries
-  lib/            helpers and data fetching
-  proxy.ts        locale detection and redirects
-```
+- `src/content/`: profil, projeler, deneyim, eğitim ve yetenekler
+- `src/content/blog/tr` ve `src/content/blog/en`: blog yazıları
+- `src/i18n/dictionaries/`: arayüzdeki metinler
 
-## Content
+Yeni bir yazı eklemek için iki klasöre de aynı isimle bir `.mdx` dosyası koymak yeterli.
 
-- Profile, projects, experience and skills live in `src/content/*.ts`.
-- Blog posts live in `src/content/blog/<locale>/<slug>.mdx` and export a `metadata` object.
-- UI strings live in `src/i18n/dictionaries`.
+## Ortam değişkenleri
 
-## Environment
+`.env.example` dosyasında hepsi var. Kısaca:
 
-| Variable               | Purpose                                        |
-| ---------------------- | ---------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL used in metadata and the sitemap |
-| `GITHUB_TOKEN`         | Optional, enables the contribution calendar    |
-| `SMTP_*`               | Mail server credentials for the contact form   |
-| `CONTACT_TO_EMAIL`     | Where contact form messages are delivered      |
+- `SMTP_*`: form mesajlarını gönderen mail hesabı
+- `CONTACT_TO_EMAIL`: mesajların düşeceği adres
+- `GITHUB_TOKEN`: zorunlu değil. Verirsen katkı takvimi GitHub API'sinden gelir, vermezsen herkese açık profil sayfasından okunur.
+- `NEXT_PUBLIC_SITE_URL`: sitenin adresi, sitemap ve paylaşım önizlemeleri bunu kullanıyor
 
-A fine-grained GitHub token with no extra permissions is enough for the contribution calendar.
+## Yayına alma
 
-## Deployment
-
-The app builds into a standalone Docker image and runs behind Nginx.
+Sunucuda:
 
 ```bash
 cp .env.example .env
 docker compose up -d --build
 ```
 
-The container listens on `127.0.0.1:3000`. An example Nginx config with HTTPS redirects is in `deploy/nginx.conf`. Certificates can be issued with Certbot:
+Container sadece `127.0.0.1:3000` portunu dinliyor, dışarıya Nginx açıyor. Kullandığım ayar `deploy/nginx.conf` içinde. Sertifikayı Certbot ile alıyorum:
 
 ```bash
 sudo certbot certonly --webroot -w /var/www/certbot -d ozdemirmustafa.com -d www.ozdemirmustafa.com
 ```
 
-To update the site, pull the latest changes and run `docker compose up -d --build` again.
+Güncellemek için `git pull` yapıp aynı `docker compose` komutunu tekrar çalıştırmak yetiyor.
+
+---
+
+Kodu inceleyip fikir almakta serbestsin. Yazılar ve fotoğraflar bana ait.
