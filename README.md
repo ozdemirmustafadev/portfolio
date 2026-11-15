@@ -24,10 +24,14 @@ npm run dev
 
 ```
 src/
-  app/            routes and layouts
+  app/[lang]/     localized routes and root layout
   components/
+    layout/       header, footer
+    providers/    client-side providers
     sections/     page sections
     ui/           shared primitives
   content/        profile, projects, experience data
+  i18n/           locale config and dictionaries
   lib/            helpers
+  proxy.ts        locale detection and redirects
 ```

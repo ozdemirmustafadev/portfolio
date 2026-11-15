@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "title": "Mustafa Özdemir · Flutter Developer",
+    "description": "Flutter developer building mobile apps, with Go and Next.js on the side."
+  },
+  "nav": {
+    "label": "Main navigation",
+    "about": "About",
+    "projects": "Projects",
+    "experience": "Experience",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "controls": {
+    "toggleTheme": "Toggle theme",
+    "switchLocale": "Türkçe'ye geç"
+  },
+  "hero": {
+    "eyebrow": "Flutter Developer",
+    "title": "I build mobile apps that feel fast and stay maintainable.",
+    "summary": "Mostly Flutter and Dart. When a project needs a backend or a web front, I reach for Go and Next.js."
+  }
+}
