@@ -1,0 +1,33 @@
+export const metadata = {
+  title: "How this site is built",
+  description: "A quick tour of the stack behind ozdemirmustafa.com.",
+  date: "2026-11-15",
+  tags: ["Next.js", "MDX"],
+};
+
+I wanted a small, fast personal site that I could keep up to date without fighting the tooling. Here is what I ended up with.
+
+## Stack
+
+- **Next.js** with the App Router, rendered statically where possible
+- **Tailwind CSS** for styling, with a handful of color tokens for light and dark themes
+- **MDX** for posts like this one, stored right in the repository
+
+## Content lives next to the code
+
+Projects, experience and skills are plain TypeScript files. Adding a project means adding an object:
+
+```ts
+{
+  slug: "habit-tracker",
+  name: "Habit Tracker",
+  stack: ["Flutter", "Riverpod"],
+  year: 2025,
+}
+```
+
+No CMS, no database. Just a commit and a deploy.
+
+## Hosting
+
+The site runs in a Docker container on my own server behind Nginx.

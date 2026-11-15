@@ -1,0 +1,33 @@
+export const metadata = {
+  title: "Bu site nasıl yapıldı",
+  description: "ozdemirmustafa.com'un arkasındaki teknolojilere kısa bir bakış.",
+  date: "2026-11-15",
+  tags: ["Next.js", "MDX"],
+};
+
+Küçük, hızlı ve araçlarla boğuşmadan güncel tutabileceğim bir kişisel site istiyordum. Sonunda ortaya çıkan yapı şu.
+
+## Teknolojiler
+
+- **Next.js** App Router, mümkün olan her yerde statik render
+- **Tailwind CSS**, açık ve koyu tema için birkaç renk değişkeniyle
+- **MDX**, bunun gibi yazılar için, doğrudan repoda duruyor
+
+## İçerik kodun yanında
+
+Projeler, deneyimler ve yetenekler düz TypeScript dosyaları. Yeni bir proje eklemek bir obje eklemek demek:
+
+```ts
+{
+  slug: "habit-tracker",
+  name: "Habit Tracker",
+  stack: ["Flutter", "Riverpod"],
+  year: 2025,
+}
+```
+
+CMS yok, veritabanı yok. Sadece bir commit ve bir deploy.
+
+## Barındırma
+
+Site kendi sunucumda, Nginx arkasında bir Docker container içinde çalışıyor.
